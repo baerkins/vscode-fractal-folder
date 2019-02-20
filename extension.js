@@ -21,7 +21,7 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('NEW-FRACTAL-FOLDER');
+	// console.log('NEW-FRACTAL-FOLDER');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
@@ -75,14 +75,14 @@ function activate(context) {
           const newPath = path.resolve(targetPath, fractalName);
 
           if (!fs.existsSync(newPath)){
-            console.log(newPath);
-            console.log(path.resolve(newPath, `${fractalName}.scss`));
+            // console.log(newPath);
+            // console.log(path.resolve(newPath, `${fractalName}.scss`));
             // fs.mkdir(newPath);
             fs.mkdir(newPath, { recursive: true }, (err) => {
               if (err) throw err;
             });
 
-            console.log(path.resolve(newPath, `${fractalName}.scss`));
+            // console.log(path.resolve(newPath, `${fractalName}.scss`));
 
             fs.writeFile(path.resolve(newPath, `${fractalName}.twig`), '', function (err) {
               if (err) throw err;
