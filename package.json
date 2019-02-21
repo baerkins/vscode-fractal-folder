@@ -2,7 +2,7 @@
 	"name": "new-fractal-folder",
 	"displayName": "New Fractal Folder",
 	"description": "Create a twig, scss, and config.js file with the same name of a new folder",
-	"version": "0.0.1",
+	"version": "0.0.2",
   "publisher": "baerkins",
   "repository": {
     "type": "git",
@@ -23,6 +23,11 @@
 			"type": "object",
 			"title": "New Fractal Folder",
 			"properties": {
+        "new-fractal-folder.fractalFileFormat": {
+					"type": "string",
+					"default": "hbs",
+					"description": "Name of file extension to create for fractal files. Do not include the dot. Example: `twig`, `hbs`"
+				},
 				"new-fractal-folder.configFileFormat": {
 					"type": "string",
 					"enum": [

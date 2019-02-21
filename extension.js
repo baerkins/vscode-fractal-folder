@@ -72,8 +72,9 @@ function activate(context) {
             fs.mkdir(newPath, { recursive: true }, (err) => {
               if (err) throw err;
 
-              // Create twig file
-              fs.writeFile(path.resolve(newPath, `${fractalName}.twig`), '', function (err) {
+              // Create fractal file
+              fracalExt = settings.fractalFileFormat ? settings.fractalFileFormat : 'hbs';
+              fs.writeFile(path.resolve(newPath, `${fractalName}.${fracalExt}`), '', function (err) {
                 if (err) throw err;
               });
 
