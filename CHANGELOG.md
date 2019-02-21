@@ -1,7 +1,5 @@
 # Change Log
-All notable changes to the "vanilla" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+All notable changes to the New Fractal Folder extension will be documented in this file.
 
 ## [Unreleased]
 - Initial release

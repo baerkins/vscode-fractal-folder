@@ -8,9 +8,13 @@ const defaultjs = `module.exports = {
   }
 }`;
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const defaultjson = `{
+  "context": {
 
+  }
+}`;
+
+const defaultyml = `context:`;
 
 
 
@@ -19,21 +23,14 @@ const defaultjs = `module.exports = {
  */
 function activate(context) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	// console.log('NEW-FRACTAL-FOLDER');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('extension.createFractalFolder', function (uri) {
-		// The code you place here will be executed every time your command is executed
+  let disposable = vscode.commands.registerCommand('createFractalFolder', function (uri) {
 
     const uriPath = uri.fsPath;
     const isDir = fs.lstatSync(uriPath).isDirectory();
-    const fileExtensions = ['.twig', '.config.js', '.scss'];
-
+    const settings = vscode.workspace.getConfiguration('new-fractal-folder');
     let targetPath;
+
+    console.log(settings);
 
     if ( !isDir ) {
       targetPath = path.dirname(uriPath);
@@ -63,10 +60,6 @@ function activate(context) {
       prompt: `Input the fractal folder name`
     };
 
-    // vscode.window.showInputBox(options).then(text => {
-    //   console.log('result: ' + text);
-    // });
-
     // Open Input Box
     vscode.window.showInputBox(options)
       .then((fractalName) => {
@@ -74,28 +67,63 @@ function activate(context) {
         if (fractalName !== null && fractalName !== undefined ) {
           const newPath = path.resolve(targetPath, fractalName);
 
+          // Create folder path
           if (!fs.existsSync(newPath)){
-            // console.log(newPath);
-            // console.log(path.resolve(newPath, `${fractalName}.scss`));
-            // fs.mkdir(newPath);
             fs.mkdir(newPath, { recursive: true }, (err) => {
               if (err) throw err;
+
+              // Create twig file
+              fs.writeFile(path.resolve(newPath, `${fractalName}.twig`), '', function (err) {
+                if (err) throw err;
+              });
+
+              // Create config file content
+              const configExt = settings.configFileFormat;
+              let configContent;
+
+              switch (configExt) {
+                case 'json':
+                  configContent = defaultjson;
+                  break;
+
+                case 'yml':
+                  configContent = defaultyml;
+                  break;
+
+                default:
+                  configContent = defaultjs;
+              }
+
+              // Create config file with content
+              fs.writeFile(path.resolve(newPath, `${fractalName}.config.${configExt}`), configContent, function (err) {
+                if (err) throw err;
+              });
+
+              // Sass file
+              const sassOpts = settings.sassOpts;
+              let sassExt;
+
+              switch (sassOpts) {
+                case 'Create .sass file':
+                  sassExt = 'sass';
+                  break;
+
+                case 'Do not generate sass file':
+                  sassExt = false;
+                  break;
+
+                default:
+                  sassExt = 'scss';
+
+              }
+
+              if ( sassExt != false ) {
+                fs.writeFile(path.resolve(newPath, `${fractalName}.${sassExt}`), '', function (err) {
+                  if (err) throw err;
+                });
+              }
+
             });
-
-            // console.log(path.resolve(newPath, `${fractalName}.scss`));
-
-            fs.writeFile(path.resolve(newPath, `${fractalName}.twig`), '', function (err) {
-              if (err) throw err;
-            });
-
-            fs.writeFile(path.resolve(newPath, `${fractalName}.config.js`), defaultjs, function (err) {
-              if (err) throw err;
-            });
-
-            fs.writeFile(path.resolve(newPath, `${fractalName}.scss`), '', function (err) {
-              if (err) throw err;
-            });
-
           }
 
         }

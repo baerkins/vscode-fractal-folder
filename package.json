@@ -11,21 +11,47 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.createFractalFolder"
+		"onCommand:createFractalFolder"
 	],
 	"main": "./extension.js",
 	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "New Fractal Folder",
+			"properties": {
+				"new-fractal-folder.configFileFormat": {
+					"type": "string",
+					"enum": [
+						"js",
+						"json",
+						"yml"
+					],
+					"default": "js",
+					"description": "Type of config file to generate"
+				},
+				"new-fractal-folder.sassOpts": {
+					"type": "string",
+					"enum": [
+						"Create .scss file",
+						"Create .sass file",
+						"Do not generate sass file"
+					],
+					"default": "Create .scss file",
+					"description": "Sass options."
+				}
+			}
+		},
 		"commands": [
 			{
-				"command": "extension.createFractalFolder",
+				"command": "createFractalFolder",
 				"title": "Create New Fractal Folder"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
-					"command": "extension.createFractalFolder",
-					"group": "9_cutcopypaste"
+					"command": "createFractalFolder",
+					"group": "1_modification"
 				}
 			]
 		}
@@ -35,10 +61,10 @@
 		"test": "node ./node_modules/vscode/bin/test"
 	},
 	"devDependencies": {
-		"typescript": "^3.3.1",
-		"vscode": "^1.1.28",
-		"eslint": "^5.13.0",
+		"@types/mocha": "^2.2.42",
 		"@types/node": "^10.12.21",
-		"@types/mocha": "^2.2.42"
+		"eslint": "^5.13.0",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.30"
 	}
 }
