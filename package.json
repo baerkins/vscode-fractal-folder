@@ -3,7 +3,11 @@
 	"displayName": "New Fractal Folder",
 	"description": "Create a twig, scss, and config.js file with the same name of a new folder",
 	"version": "0.0.1",
-	"publisher": "baerkins",
+  "publisher": "baerkins",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baerkins/vscode-fractal-folder.git"
+  },
 	"engines": {
 		"vscode": "^1.31.0"
 	},
