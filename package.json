@@ -2,7 +2,7 @@
 	"name": "new-fractal-folder",
 	"displayName": "New Fractal Folder",
 	"description": "Create a twig, scss, and config.js file with the same name of a new folder",
-	"version": "0.0.2",
+	"version": "0.0.3",
   "publisher": "baerkins",
   "repository": {
     "type": "git",
