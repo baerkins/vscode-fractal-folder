@@ -2,7 +2,7 @@
 	"name": "new-fractal-folder",
 	"displayName": "New Fractal Folder",
 	"description": "Create a twig, scss, and config.js file with the same name of a new folder",
-	"version": "0.0.3",
+	"version": "0.0.4",
   "publisher": "baerkins",
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
 					"default": "js",
 					"description": "Type of config file to generate"
 				},
-				"new-fractal-folder.sassOpts": {
+				"new-fractal-folder.sassOptions": {
 					"type": "string",
 					"enum": [
 						"Create .scss file",
@@ -47,6 +47,11 @@
 					],
 					"default": "Create .scss file",
 					"description": "Sass options."
+        },
+        "new-fractal-folder.readmeFile": {
+					"type": "boolean",
+          "default": false,
+					"description": "Create README.md file"
 				}
 			}
 		},

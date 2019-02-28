@@ -70,11 +70,17 @@ function activate(context) {
           // Create folder path
           if (!fs.existsSync(newPath)){
             fs.mkdir(newPath, { recursive: true }, (err) => {
+
               if (err) throw err;
+
+              // Remove ordering numbers and hidden underscore from file names
+              let fileName = fractalName;
+              fileName = fileName.replace(/^[0-9]+-/, '');
+              fileName = fileName.replace(/^_/, '');
 
               // Create fractal file
               fracalExt = settings.fractalFileFormat ? settings.fractalFileFormat : 'hbs';
-              fs.writeFile(path.resolve(newPath, `${fractalName}.${fracalExt}`), '', function (err) {
+              fs.writeFile(path.resolve(newPath, `${fileName}.${fracalExt}`), '', function (err) {
                 if (err) throw err;
               });
 
@@ -96,12 +102,13 @@ function activate(context) {
               }
 
               // Create config file with content
-              fs.writeFile(path.resolve(newPath, `${fractalName}.config.${configExt}`), configContent, function (err) {
+              fs.writeFile(path.resolve(newPath, `${fileName}.config.${configExt}`), configContent, function (err) {
                 if (err) throw err;
               });
 
               // Sass file
-              const sassOpts = settings.sassOpts;
+              const sassOpts = settings.sassOptions;
+
               let sassExt;
 
               switch (sassOpts) {
@@ -119,7 +126,14 @@ function activate(context) {
               }
 
               if ( sassExt != false ) {
-                fs.writeFile(path.resolve(newPath, `${fractalName}.${sassExt}`), '', function (err) {
+                fs.writeFile(path.resolve(newPath, `${fileName}.${sassExt}`), '', function (err) {
+                  if (err) throw err;
+                });
+              }
+
+              // README.md file
+              if ( settings.readmeFile ) {
+                fs.writeFile(path.resolve(newPath, 'README.md'), '', function (err) {
                   if (err) throw err;
                 });
               }
