@@ -50,7 +50,7 @@
         "new-fractal-folder.customExtensions": {
 					"type": "string",
 					"default": "",
-					"description": "A comma seperated list of file extensions to create with folder name, without proceeding dot. Example: `scss,sass,less,styl`"
+					"description": "A comma seperated list of file extensions to create with folder name, without proceeding dot. Example: `scss,jsx,less,styl`"
 				}
 			}
 		},
