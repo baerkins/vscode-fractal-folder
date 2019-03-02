@@ -30,7 +30,7 @@ function activate(context) {
     const settings = vscode.workspace.getConfiguration('new-fractal-folder');
     let targetPath;
 
-    console.log(settings);
+    // console.log(settings);
 
     if ( !isDir ) {
       targetPath = path.dirname(uriPath);
@@ -79,7 +79,7 @@ function activate(context) {
               fileName = fileName.replace(/^_/, '');
 
               // Create fractal file
-              fracalExt = settings.fractalFileFormat ? settings.fractalFileFormat : 'hbs';
+              let fracalExt = settings.fractalFileFormat ? settings.fractalFileFormat : 'hbs';
               fs.writeFile(path.resolve(newPath, `${fileName}.${fracalExt}`), '', function (err) {
                 if (err) throw err;
               });
@@ -102,34 +102,9 @@ function activate(context) {
               }
 
               // Create config file with content
-              fs.writeFile(path.resolve(newPath, `${fileName}.config.${configExt}`), configContent, function (err) {
+              fs.writeFile(path.resolve(newPath, `${fileName}.config.${configExt}`), configContent, {encoding:"utf8"}, function (err) {
                 if (err) throw err;
               });
-
-              // Sass file
-              const sassOpts = settings.sassOptions;
-
-              let sassExt;
-
-              switch (sassOpts) {
-                case 'Create .sass file':
-                  sassExt = 'sass';
-                  break;
-
-                case 'Do not generate sass file':
-                  sassExt = false;
-                  break;
-
-                default:
-                  sassExt = 'scss';
-
-              }
-
-              if ( sassExt != false ) {
-                fs.writeFile(path.resolve(newPath, `${fileName}.${sassExt}`), '', function (err) {
-                  if (err) throw err;
-                });
-              }
 
               // README.md file
               if ( settings.readmeFile ) {
@@ -137,6 +112,53 @@ function activate(context) {
                   if (err) throw err;
                 });
               }
+
+              // Custom Extensions
+              let checkDeprecatedSassOpt = false;
+
+              if ( settings.customExtensions.length && settings.customExtensions.length > 0 ) {
+                let customExts = settings.customExtensions;
+                customExts = customExts.split(',');
+
+                customExts.forEach((extName) => {
+
+                  if (extName == 'scss' || extName == 'sass') {
+                    checkDeprecatedSassOpt = false;
+                  }
+
+                  fs.writeFile(path.resolve(newPath, `${fileName}.${extName}`), '', function (err) {
+                    if (err) throw err;
+                  });
+                });
+              }
+
+              // Backwards compatability: support deprecated sass option
+              if ( settings.sassOptions && checkDeprecatedSassOpt ) {
+                const sassOpts = settings.sassOptions;
+                let sassExt;
+
+                switch (sassOpts) {
+                  case 'Create .sass file':
+                    sassExt = 'sass';
+                    break;
+
+                  case 'Do not generate sass file':
+                    sassExt = false;
+                    break;
+
+                  default:
+                    sassExt = 'scss';
+
+                }
+
+                if ( sassExt != false ) {
+                  fs.writeFile(path.resolve(newPath, `${fileName}.${sassExt}`), '', function (err) {
+                    if (err) throw err;
+                  });
+                }
+              }
+
+
 
             });
           }

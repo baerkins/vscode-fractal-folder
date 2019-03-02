@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to the New Fractal Folder extension will be documented in this file.
 
+## 0.1.0
+SASS OPTION REMOVED 😿
+CUSTOM EXTENSIONS OPTION ADDED 🎉
+
+*If you were previously generating a `.scss` or `.sass` file in the Sass Extension option, you will now need to add the extension to the Custom Extensions option.*
+
+You can now add as many file extensions as you wish. Just enter a comma seperated list in the Custom Extensions option, such as `scss,jsx,partytime`, and each will be created as a file matching the folder name.
+
 ## 0.0.4
 - Add optional README file generation
 - Remove numerical order prefix from file name
