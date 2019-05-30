@@ -3,15 +3,15 @@
 	"displayName": "New Fractal Folder",
 	"description": "Create a twig, scss, and config.js file with the same name of a new folder",
 	"version": "0.1.0",
-  "publisher": "baerkins",
-  "keywords": [
-    "fractal",
-    "create file"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/baerkins/vscode-fractal-folder.git"
-  },
+	"publisher": "baerkins",
+	"keywords": [
+		"fractal",
+		"create file"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/baerkins/vscode-fractal-folder.git"
+	},
 	"engines": {
 		"vscode": "^1.31.0"
 	},
@@ -27,7 +27,7 @@
 			"type": "object",
 			"title": "New Fractal Folder",
 			"properties": {
-        "new-fractal-folder.fractalFileFormat": {
+				"new-fractal-folder.fractalFileFormat": {
 					"type": "string",
 					"default": "hbs",
 					"description": "Name of file extension to create for fractal files. Do not include the dot. Example: `twig`, `hbs`"
@@ -41,13 +41,13 @@
 					],
 					"default": "js",
 					"description": "Type of config file to generate"
-        },
-        "new-fractal-folder.readmeFile": {
+				},
+				"new-fractal-folder.readmeFile": {
 					"type": "boolean",
-          "default": false,
+					"default": false,
 					"description": "Create README.md file"
-        },
-        "new-fractal-folder.customExtensions": {
+				},
+				"new-fractal-folder.customExtensions": {
 					"type": "string",
 					"default": "",
 					"description": "A comma seperated list of file extensions to create with folder name, without proceeding dot. Example: `scss,jsx,less,styl`"
